@@ -18,6 +18,7 @@ repositories {
     }
     maven { url = "https://maven.shedaniel.me"}
     maven { url = "https://maven.terraformersmc.com"}
+    maven { url = "https://maven-nucleoid.pb4.eu" }
 }
 
 loom {
@@ -48,6 +49,10 @@ dependencies {
 
     // Mod Menu
     modImplementation "com.terraformersmc:modmenu:${project.modmenu_version}"
+
+    // Polymer
+    modImplementation include("eu.pb4:polymer:${project.polymer_version}")
+    modImplementation include("fr.catcore:server-translations-api:${project.server_translations_version}")
 }
 
 processResources {

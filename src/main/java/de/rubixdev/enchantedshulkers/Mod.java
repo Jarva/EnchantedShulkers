@@ -6,6 +6,7 @@ import de.rubixdev.enchantedshulkers.config.WorldConfig;
 import de.rubixdev.enchantedshulkers.enchantment.RefillEnchantment;
 import de.rubixdev.enchantedshulkers.enchantment.SiphonEnchantment;
 import de.rubixdev.enchantedshulkers.interfaces.InventoryState;
+import eu.pb4.polymer.api.item.PolymerItemUtils;
 import java.util.Arrays;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
@@ -19,6 +20,7 @@ import net.fabricmc.loader.api.metadata.ModMetadata;
 import net.minecraft.enchantment.EnchantmentTarget;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
+import net.minecraft.nbt.NbtElement;
 import net.minecraft.tag.TagKey;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
@@ -84,6 +86,14 @@ public class Mod implements ModInitializer {
         ServerPlayNetworking.registerGlobalReceiver(
                 INVENTORY_CLOSE_PACKET_ID,
                 (server, player, handler, buf, responseSender) -> ((InventoryState) player).setClosed());
+
+        PolymerItemUtils.ITEM_MODIFICATION_EVENT.register((original, virtual, player) -> {
+            if (Utils.canEnchant(original.getItem()) && original.hasNbt()) {
+                NbtElement bed = original.getNbt().get("BlockEntityData");
+                virtual.getNbt().put("BlockEntityData", bed);
+            }
+            return virtual;
+        });
 
         LOGGER.info(MOD_NAME + " v" + MOD_VERSION.getFriendlyString() + " loaded");
     }

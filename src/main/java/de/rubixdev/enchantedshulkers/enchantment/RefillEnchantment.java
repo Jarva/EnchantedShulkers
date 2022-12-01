@@ -3,6 +3,7 @@ package de.rubixdev.enchantedshulkers.enchantment;
 import de.rubixdev.enchantedshulkers.Mod;
 import de.rubixdev.enchantedshulkers.Utils;
 import de.rubixdev.enchantedshulkers.config.WorldConfig;
+import eu.pb4.polymer.api.utils.PolymerObject;
 import java.util.List;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.entity.EquipmentSlot;
@@ -12,7 +13,7 @@ import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.Pair;
 import net.minecraft.util.collection.DefaultedList;
 
-public class RefillEnchantment extends Enchantment {
+public class RefillEnchantment extends Enchantment implements PolymerObject {
     public RefillEnchantment() {
         super(Rarity.RARE, Mod.PORTABLE_CONTAINER_TARGET, new EquipmentSlot[] {
             EquipmentSlot.MAINHAND, EquipmentSlot.OFFHAND
